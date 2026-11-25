@@ -1,9 +1,123 @@
 [gd_scene format=3 uid="uid://d4ebyglbkygxu"]
 
-[node name="Options" type="Control" unique_id=549750764]
+[ext_resource type="Script" path="res://scripts/options.gd" id="1_optgd"]
+[ext_resource type="Script" path="res://scripts/greek_frieze.gd" id="2_frieze"]
+
+[node name="Options" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_optgd")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RootVBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TopFrieze" type="Control" parent="RootVBox"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+script = ExtResource("2_frieze")
+
+[node name="BodyMargin" type="MarginContainer" parent="RootVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="BodyVBox" type="VBoxContainer" parent="RootVBox/BodyMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderHBox" type="HBoxContainer" parent="RootVBox/BodyMargin/BodyVBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HeaderLabel" type="Label" parent="RootVBox/BodyMargin/BodyVBox/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "OPÇÕES — Acessibilidade"
+
+[node name="StatusLabel" type="Label" parent="RootVBox/BodyMargin/BodyVBox/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Use Setas ou Tab para navegar"
+horizontal_alignment = 2
+autowrap_mode = 3
+
+[node name="MainHBox" type="HBoxContainer" parent="RootVBox/BodyMargin/BodyVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 18
+
+[node name="ItemsPanel" type="PanelContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Scroll" type="ScrollContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/ItemsPanel"]
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="ItemsBox" type="VBoxContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/ItemsPanel/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="RightCol" type="VBoxContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox"]
+custom_minimum_size = Vector2(266, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TabsPanel" type="PanelContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol"]
+layout_mode = 2
+
+[node name="TabsBox" type="VBoxContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol/TabsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="LibrasSpacer" type="Control" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol"]
+custom_minimum_size = Vector2(266, 300)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="FooterHBox" type="HBoxContainer" parent="RootVBox/BodyMargin/BodyVBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BackButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/FooterHBox"]
+custom_minimum_size = Vector2(240, 48)
+layout_mode = 2
+text = "Voltar ao Menu (Esc)"
+
+[node name="FooterHintLabel" type="Label" parent="RootVBox/BodyMargin/BodyVBox/FooterHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Esc: Voltar  |  Setas / WASD / Tab: Navegar  |  Enter / ← →: Alterar  |  H / F1: Ajuda"
+autowrap_mode = 3
+
+[node name="FooterLibrasSpacer" type="Control" parent="RootVBox/BodyMargin/BodyVBox/FooterHBox"]
+custom_minimum_size = Vector2(266, 0)
+layout_mode = 2
+mouse_filter = 2

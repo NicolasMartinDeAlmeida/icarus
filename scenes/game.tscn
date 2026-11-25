@@ -1,3 +1,423 @@
 [gd_scene format=3 uid="uid://di0awb0kc7ond"]
 
-[node name="Game" type="Node2D" unique_id=1592767955]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_gamegd"]
+[ext_resource type="Script" path="res://scripts/greek_frieze.gd" id="2_frieze"]
+[ext_resource type="Script" path="res://scripts/corridor_view.gd" id="3_corridor"]
+[ext_resource type="Script" path="res://scripts/maze_map_view.gd" id="4_mapview"]
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gamegd")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RootVBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TopFrieze" type="Control" parent="RootVBox"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+script = ExtResource("2_frieze")
+
+[node name="BodyMargin" type="MarginContainer" parent="RootVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="BodyVBox" type="VBoxContainer" parent="RootVBox/BodyMargin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HudPanel" type="PanelContainer" parent="RootVBox/BodyMargin/BodyVBox"]
+layout_mode = 2
+
+[node name="HudHBox" type="HBoxContainer" parent="RootVBox/BodyMargin/BodyVBox/HudPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ObjectiveLabel" type="Label" parent="RootVBox/BodyMargin/BodyVBox/HudPanel/HudHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Objetivo: chegar ao centro (★) fugindo do monstro"
+autowrap_mode = 3
+
+[node name="StatsLabel" type="Label" parent="RootVBox/BodyMargin/BodyVBox/HudPanel/HudHBox"]
+layout_mode = 2
+text = "Passos: 0  |  Leste"
+horizontal_alignment = 2
+
+[node name="MainHBox" type="HBoxContainer" parent="RootVBox/BodyMargin/BodyVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="StageCol" type="VBoxContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox"]
+custom_minimum_size = Vector2(416, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CorridorPanel" type="PanelContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/StageCol"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CorridorView" type="Control" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/StageCol/CorridorPanel"]
+custom_minimum_size = Vector2(360, 360)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_corridor")
+
+[node name="PadGrid" type="GridContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/StageCol"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 3
+
+[node name="SpacerTL" type="Control" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/StageCol/PadGrid"]
+custom_minimum_size = Vector2(130, 54)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AdvanceButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/StageCol/PadGrid"]
+custom_minimum_size = Vector2(130, 54)
+layout_mode = 2
+text = "▲ Avançar"
+
+[node name="SpacerTR" type="Control" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/StageCol/PadGrid"]
+custom_minimum_size = Vector2(130, 54)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TurnLeftButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/StageCol/PadGrid"]
+custom_minimum_size = Vector2(130, 54)
+layout_mode = 2
+text = "◀ Esquerda"
+
+[node name="TurnAroundButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/StageCol/PadGrid"]
+custom_minimum_size = Vector2(130, 54)
+layout_mode = 2
+text = "▼ Meia-volta"
+
+[node name="TurnRightButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/StageCol/PadGrid"]
+custom_minimum_size = Vector2(130, 54)
+layout_mode = 2
+text = "▶ Direita"
+
+[node name="InfoCol" type="VBoxContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="FeedbackPanel" type="PanelContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol"]
+layout_mode = 2
+
+[node name="FeedbackLabel" type="Label" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol/FeedbackPanel"]
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+text = "✔ Você entrou no labirinto."
+autowrap_mode = 3
+
+[node name="DangerPanel" type="PanelContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol"]
+layout_mode = 2
+
+[node name="DangerLabel" type="Label" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol/DangerPanel"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+text = "Monstro distante."
+autowrap_mode = 3
+
+[node name="ToolsPanel" type="PanelContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ToolsVBox" type="VBoxContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol/ToolsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MapButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol/ToolsPanel/ToolsVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Minimapa (E): Fechado"
+
+[node name="DescribeButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol/ToolsPanel/ToolsVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Ouvir descrição (M)"
+
+[node name="PositionButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol/ToolsPanel/ToolsVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Fio de Ariadne (P)"
+
+[node name="OptionsButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol/ToolsPanel/ToolsVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Opções"
+
+[node name="HelpButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol/ToolsPanel/ToolsVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Ajuda (H)"
+
+[node name="PauseButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/InfoCol/ToolsPanel/ToolsVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Pausar / Menu (Esc)"
+
+[node name="RightCol" type="VBoxContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox"]
+custom_minimum_size = Vector2(266, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MiniMapPanel" type="PanelContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol"]
+visible = false
+custom_minimum_size = Vector2(266, 260)
+layout_mode = 2
+
+[node name="MiniVBox" type="VBoxContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol/MiniMapPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MiniHeader" type="HBoxContainer" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol/MiniMapPanel/MiniVBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MiniTitle" type="Label" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol/MiniMapPanel/MiniVBox/MiniHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Minimapa"
+
+[node name="ExpandMapButton" type="Button" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol/MiniMapPanel/MiniVBox/MiniHeader"]
+custom_minimum_size = Vector2(92, 32)
+layout_mode = 2
+text = "Ampliar"
+
+[node name="SideMazeMapView" type="Control" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol/MiniMapPanel/MiniVBox"]
+custom_minimum_size = Vector2(236, 178)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("4_mapview")
+
+[node name="MiniLegend" type="Label" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol/MiniMapPanel/MiniVBox"]
+layout_mode = 2
+text = "▲Você  ★Centro  ◆Monstro"
+horizontal_alignment = 1
+
+[node name="LibrasSpacer" type="Control" parent="RootVBox/BodyMargin/BodyVBox/MainHBox/RightCol"]
+custom_minimum_size = Vector2(266, 332)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="MapModal" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.85)
+
+[node name="Center" type="CenterContainer" parent="MapModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MapPanel" type="PanelContainer" parent="MapModal/Center"]
+custom_minimum_size = Vector2(560, 590)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="MapModal/Center/MapPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MapTitle" type="Label" parent="MapModal/Center/MapPanel/VBox"]
+layout_mode = 2
+text = "MAPA 2D DO LABIRINTO"
+horizontal_alignment = 1
+
+[node name="MazeMapView" type="Control" parent="MapModal/Center/MapPanel/VBox"]
+custom_minimum_size = Vector2(360, 340)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("4_mapview")
+
+[node name="LegendLabel" type="Label" parent="MapModal/Center/MapPanel/VBox"]
+layout_mode = 2
+text = "▲ Você   |   ★ Centro (Saída)   |   ◆ Monstro   |   ■ Parede   |   · Visitado"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="MapSummaryLabel" type="Label" parent="MapModal/Center/MapPanel/VBox"]
+layout_mode = 2
+text = ""
+autowrap_mode = 3
+
+[node name="MapButtons" type="HBoxContainer" parent="MapModal/Center/MapPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="MapSpeakButton" type="Button" parent="MapModal/Center/MapPanel/VBox/MapButtons"]
+custom_minimum_size = Vector2(210, 48)
+layout_mode = 2
+text = "Ouvir resumo (M)"
+
+[node name="MapCloseButton" type="Button" parent="MapModal/Center/MapPanel/VBox/MapButtons"]
+custom_minimum_size = Vector2(210, 48)
+layout_mode = 2
+text = "Fechar Mapa (Esc)"
+
+[node name="PauseModal" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.85)
+
+[node name="Center" type="CenterContainer" parent="PauseModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PausePanel" type="PanelContainer" parent="PauseModal/Center"]
+custom_minimum_size = Vector2(440, 380)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="PauseModal/Center/PausePanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="PauseTitle" type="Label" parent="PauseModal/Center/PausePanel/VBox"]
+layout_mode = 2
+text = "JOGO PAUSADO"
+horizontal_alignment = 1
+
+[node name="PauseHint" type="Label" parent="PauseModal/Center/PausePanel/VBox"]
+layout_mode = 2
+text = "Sem pressa: o jogo está em pausa."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ResumeButton" type="Button" parent="PauseModal/Center/PausePanel/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Continuar (Esc)"
+
+[node name="PauseOptionsButton" type="Button" parent="PauseModal/Center/PausePanel/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Opções"
+
+[node name="RestartButton" type="Button" parent="PauseModal/Center/PausePanel/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Reiniciar Labirinto"
+
+[node name="BackToMenuButton" type="Button" parent="PauseModal/Center/PausePanel/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Voltar ao Menu"
+
+[node name="EndModal" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.88)
+
+[node name="Center" type="CenterContainer" parent="EndModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EndPanel" type="PanelContainer" parent="EndModal/Center"]
+custom_minimum_size = Vector2(520, 340)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="EndModal/Center/EndPanel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="EndTitle" type="Label" parent="EndModal/Center/EndPanel/VBox"]
+layout_mode = 2
+text = "FIM DE JOGO"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="EndBody" type="Label" parent="EndModal/Center/EndPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="EndButtons" type="HBoxContainer" parent="EndModal/Center/EndPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="EndModal/Center/EndPanel/VBox/EndButtons"]
+custom_minimum_size = Vector2(210, 52)
+layout_mode = 2
+text = "Jogar de novo"
+
+[node name="EndMenuButton" type="Button" parent="EndModal/Center/EndPanel/VBox/EndButtons"]
+custom_minimum_size = Vector2(210, 52)
+layout_mode = 2
+text = "Voltar ao Menu"
+
+[node name="OptionsOverlayHost" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

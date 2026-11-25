@@ -1,0 +1,176 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/accessibility_overlay.gd" id="1_ovscr"]
+[ext_resource type="Shader" path="res://assets/Shaders/colorblind.gdshader" id="2_cbshd"]
+[ext_resource type="Texture2D" uid="uid://drgbh6a6wbg6r" path="res://assets/Art/vlibras.png" id="3_vlb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cb"]
+shader = ExtResource("2_cbshd")
+shader_parameter/mode = 0
+
+[node name="AccessibilityOverlay" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_ovscr")
+
+[node name="ColorblindRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+material = SubResource("ShaderMaterial_cb")
+
+[node name="LibrasPanel" type="PanelContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -266.0
+offset_top = -346.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="LibrasPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="HBoxContainer" parent="LibrasPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HeaderIcon" type="TextureRect" parent="LibrasPanel/VBox/Header"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("3_vlb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TitleLabel" type="Label" parent="LibrasPanel/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Janela de Libras"
+
+[node name="MediaFrame" type="ColorRect" parent="LibrasPanel/VBox"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.95, 0.96, 0.98, 1)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="LibrasPanel/VBox/MediaFrame"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand = true
+
+[node name="FallbackBox" type="VBoxContainer" parent="LibrasPanel/VBox/MediaFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="IconRect" type="TextureRect" parent="LibrasPanel/VBox/MediaFrame/FallbackBox"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_vlb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StateLabel" type="Label" parent="LibrasPanel/VBox/MediaFrame/FallbackBox"]
+layout_mode = 2
+text = "Espaço reservado
+para vídeos em Libras"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="CaptionLabel" type="Label" parent="LibrasPanel/VBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Pronto."
+autowrap_mode = 3
+max_lines_visible = 3
+
+[node name="RepeatButton" type="Button" parent="LibrasPanel/VBox"]
+layout_mode = 2
+text = "Repetir fala (M)"
+
+[node name="CaptionBar" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -96.0
+offset_right = 980.0
+offset_bottom = -48.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="CaptionLabel" type="Label" parent="CaptionBar"]
+layout_mode = 2
+text = ""
+autowrap_mode = 3
+
+[node name="HelpBackdrop" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.85)
+
+[node name="Center" type="CenterContainer" parent="HelpBackdrop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HelpPanel" type="PanelContainer" parent="HelpBackdrop/Center"]
+custom_minimum_size = Vector2(720, 420)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="HelpBackdrop/Center/HelpPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HelpTitle" type="Label" parent="HelpBackdrop/Center/HelpPanel/VBox"]
+layout_mode = 2
+text = "Ajuda e Navegação por Teclado"
+
+[node name="HelpBody" type="Label" parent="HelpBackdrop/Center/HelpPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "• Menus — Setas, WASD ou Tab / Shift+Tab: navegar; Enter: confirmar; Esc: voltar.
+• Labirinto — W ou ↑: avançar; A/D ou ←/→: virar; S ou ↓: meia-volta.
+• Atalhos no jogo — E: Minimapa lateral; M: descrição completa; P: Fio de Ariadne (guia).
+• H ou F1: abrir ou fechar esta ajuda a qualquer momento.
+• Todos os comandos podem ser remapeados em Opções → Controles (inclusive durante o jogo).
+
+Jogo por turnos sem limite de tempo: o monstro só se move quando você avança.
+Nenhum dado pessoal é coletado; suas preferências ficam salvas apenas neste computador."
+autowrap_mode = 3
+
+[node name="CloseHelpButton" type="Button" parent="HelpBackdrop/Center/HelpPanel/VBox"]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Fechar Ajuda (Esc)"

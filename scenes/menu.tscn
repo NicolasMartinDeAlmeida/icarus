@@ -2,24 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dp5clji8naldd" path="res://scripts/menu.gd" id="1_v86rl"]
 [ext_resource type="Texture2D" uid="uid://cwwfwnxjs7u5s" path="res://assets/Art/bg-icarus2.png" id="2_13sgg"]
-[ext_resource type="Texture2D" uid="uid://cr605bvax1u8i" path="res://assets/UI/ninepatch.png" id="3_i6lef"]
-[ext_resource type="FontFile" uid="uid://dh7vittk2eel3" path="res://assets/Font/Eight-Bit Exposition.otf" id="4_70i5f"]
-[ext_resource type="Texture2D" uid="uid://8oibqhuxgfau" path="res://assets/UI/ninepatch2.png" id="5_mj5lg"]
-[ext_resource type="Texture2D" uid="uid://qfnb50y4ovyx" path="res://assets/UI/ninepatch3.png" id="6_ufwb2"]
 [ext_resource type="Texture2D" uid="uid://drgbh6a6wbg6r" path="res://assets/Art/vlibras.png" id="7_6cdou"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mae5d"]
-
-[sub_resource type="Theme" id="Theme_vsb4k"]
-Button/colors/font_outline_color = Color(0.97566444, 4.5724214e-06, 1.540184e-06, 0)
-Button/fonts/font = ExtResource("4_70i5f")
-Button/styles/disabled = null
-Button/styles/focus = null
-Button/styles/hover = SubResource("StyleBoxTexture_mae5d")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w11f4"]
-
-[node name="Control" type="Control" unique_id=1699042856]
+[node name="Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +13,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v86rl")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=159998465]
+[node name="Background" type="TextureRect" parent="."]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,148 +22,84 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_13sgg")
+expand_mode = 1
+stretch_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1055280516]
+[node name="ContrastScrim" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
+mouse_filter = 2
+color = Color(0, 0, 0, 0.35)
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=836953504]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=981384251]
-layout_mode = 2
-offset_transform_enabled = true
-alignment = 1
-
-[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=425206877]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=265678076]
-custom_minimum_size = Vector2(115.6, 25)
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1246773941]
-custom_minimum_size = Vector2(50, 16)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-offset_transform_enabled = true
-offset_transform_position = Vector2(0, -0.5)
-texture = ExtResource("3_i6lef")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/NinePatchRect" unique_id=1451915110]
+[node name="VLibrasButton" type="Button" parent="."]
+custom_minimum_size = Vector2(220, 48)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 0.5
-offset_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = SubResource("Theme_vsb4k")
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxEmpty_w11f4")
-text = "Iniciar"
-clip_text = true
-
-[node name="NinePatchRect2" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=137918850]
-modulate = Color(1, 0.49411765, 0, 1)
-custom_minimum_size = Vector2(50, 16)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-offset_transform_enabled = true
-offset_transform_position = Vector2(0, -0.5)
-texture = ExtResource("5_mj5lg")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/NinePatchRect2" unique_id=327241889]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 0.5
-offset_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = SubResource("Theme_vsb4k")
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxEmpty_w11f4")
-text = "Opções"
-autowrap_trim_flags = 0
-
-[node name="NinePatchRect3" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=389092659]
-custom_minimum_size = Vector2(50, 16)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-offset_transform_enabled = true
-offset_transform_position = Vector2(0, -0.5)
-texture = ExtResource("6_ufwb2")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/NinePatchRect3" unique_id=1663466941]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 0.5
-offset_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = SubResource("Theme_vsb4k")
-theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxEmpty_w11f4")
-text = "Sair"
-clip_text = true
-
-[node name="BoxContainer2" type="BoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1622653245]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/BoxContainer2" unique_id=999360571]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/BoxContainer2/MarginContainer" unique_id=556112588]
-custom_maximum_size = Vector2(32, 32)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+offset_left = -244.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 64.0
+grow_horizontal = 0
+text = "VLibras: Ligado"
 icon = ExtResource("7_6cdou")
-flat = true
-icon_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=310854242]
+[node name="MenuPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -340.0
+offset_right = 180.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="MenuPanel"]
 layout_mode = 2
-alignment = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="MenuPanel/VBox"]
+layout_mode = 2
+text = "Labirinto de Ícaro"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="MenuPanel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Iniciar"
+
+[node name="OptionsButton" type="Button" parent="MenuPanel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Opções"
+
+[node name="QuitButton" type="Button" parent="MenuPanel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Sair"
+
+[node name="FooterBar" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -58.0
+offset_right = 980.0
+offset_bottom = -16.0
+grow_vertical = 0
+
+[node name="FooterLabel" type="Label" parent="FooterBar"]
+layout_mode = 2
+text = "Setas, WASD ou Tab: Navegar  |  Enter: Selecionar  |  H / F1: Ajuda  |  M: Repetir"
